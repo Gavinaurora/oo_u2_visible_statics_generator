@@ -19,7 +19,7 @@ func_description = parameter['FUNC_DESCRIPTION']
 
 help_info = tk.StringVar()
 help_info.set("你好，欢迎使用我的可视化数据生成器！")
-help_info_label = tk.Label(window, textvariable=help_info, width=50, height=2,
+help_info_label = tk.Label(window, textvariable=help_info, width=85, height=2,
                            bg='white', fg='black', font=('Arial', 12), anchor='w')
 help_info_label.place(x=0, y=690)
 
@@ -97,6 +97,8 @@ def gen():
     clear_txt()
     rng.fin_gen(req)
     help_info.set("生成数据成功！")
+    string = str(round(rng.time, 1)) + 's'
+    time_output.config(text=string)
     with open(file_name, "r", encoding="utf-8") as f:
         file_content = f.read()
         text_output.insert(tk.END, file_content)
@@ -104,7 +106,12 @@ def gen():
 
 def reset():
     clear_txt()
-    text_output.delete(1.0, tk.END)
+    text_output.delete('1.0', tk.END)
+    req.clear()
+    now_func_list.clear()
+    print_func_queue()
+    time_output.config(text='1.0' + 's')
+    time_scale.set(1.0)
     rng.__init__()
     help_info.set("重置了数据生成器。")
 
@@ -115,7 +122,8 @@ def arg_window_gen():
 
 
 def print_selection(v):
-    time_output.config(text='you have selected ' + v)
+    time_output.config(text=v + 's')
+    rng.time = float(v)
 
 
 if 1 == 1:
@@ -145,11 +153,11 @@ if 1 == 1:
         lb.insert(lb.size(), func)
     lb.place(x=200, y=0, width=200, height=300)
 
-    time_output = tk.Label(window, bg='white', fg='black', width=20, text='empty')
-    time_output.place(x=0, y=650)
-    time_scale = tk.Scale(window, label='下一条指令的时间', from_=0, to=50, orient=tk.HORIZONTAL, length=400,
+    time_scale = tk.Scale(window, label='下一条指令的时间', from_=0, to=100, orient=tk.HORIZONTAL, length=400,
                           showvalue=False, tickinterval=5, resolution=0.1, command=print_selection)
     time_scale.place(x=0, y=580)
+    time_output = tk.Label(window, bg="white", fg='black', width=10, text=str(round(rng.time, 1)) + "s")
+    time_output.place(x=130, y=580)
 
 if 2 == 2:
     menu = tk.Menu(window)

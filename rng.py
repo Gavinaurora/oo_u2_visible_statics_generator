@@ -1,7 +1,6 @@
 import json
 import random
 
-
 # global variables
 file_name = "file1.txt"
 parameter = {}
@@ -143,6 +142,43 @@ def mono_lift_mono_to_burst_gen():
         pas_id += 1
 
 
+def chaos_burst_gen():
+    global pas_id, time, lift_id_pool
+    s_len = parameter['BURST_LEN']
+    s_range = parameter['BURST_RANGE']
+    _len = random.randint(s_len - s_range, s_len + s_range)
+    for i in range(_len):
+        pri = random.randint(1, 100)
+        lift_id = random.choice(lift_id_pool)
+        from_floor = random.choice(floor_name)
+        to_floor = random.choice(floor_name)
+        while to_floor == from_floor:
+            to_floor = random.choice(floor_name)
+        mono_gen(pri, from_floor, to_floor, lift_id)
+        pas_id += 1
+
+
+def mono_lift_thorough_burst_gen():
+    global pas_id, time, lift_id_pool
+    s_len = parameter['BURST_LEN']
+    s_range = parameter['BURST_RANGE']
+    _len = random.randint(s_len - s_range, s_len + s_range)
+    if len(burst_id_pool) > 0:
+        lift_id = burst_id_pool.pop(0)
+    else:
+        return
+    for i in range(_len):
+        pri = random.randint(1, 100)
+        if random.random() < 0.5:
+            from_floor = floor_name[random.randint(0, 1)]
+            to_floor = floor_name[-1 - random.randint(0, 1)]
+        else:
+            from_floor = floor_name[-1 - random.randint(0, 1)]
+            to_floor = floor_name[random.randint(0, 1)]
+        mono_gen(pri, from_floor, to_floor, lift_id)
+        pas_id += 1
+
+
 def fin_gen(req):
     for i in req:
         if i == 0:
@@ -157,4 +193,7 @@ def fin_gen(req):
             mono_lift_mono_from_burst_gen()
         elif i == 5:
             mono_lift_mono_to_burst_gen()
-
+        elif i == 6:
+            chaos_burst_gen()
+        elif i == 7:
+            mono_lift_thorough_burst_gen()
