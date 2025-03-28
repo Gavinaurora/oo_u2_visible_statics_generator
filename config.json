@@ -1,0 +1,53 @@
+{
+  "INIT_PAS_ID": 643,
+  "TIME": 1.0,
+  "FLOOR_NAME": [
+    "B4",
+    "B3",
+    "B2",
+    "B1",
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "F6",
+    "F7"
+  ],
+  "LIFT_ID": [
+    6,
+    4,
+    3,
+    2,
+    1,
+    5
+  ],
+
+  "FUNC_LIST": [
+    "chaos_gen",
+    "time_little_dif_gen",
+    "time_large_dif_gen",
+    "mono_lift_std_burst_gen",
+    "mono_lift_mono_from_burst_gen",
+    "mono_lift_mono_to_burst_gen"
+  ],
+  "FUNC_DESCRIPTION": [
+    "彻底随机的数据生成,拥抱混沌吧！",
+    "到达时间缓慢增加的随机数据生成策略。",
+    "到达时间迅速增加的随机数据生成策略。",
+    "只针对一台电梯的大量随机数据生成策略。",
+    "只针对一台电梯的大量从同一楼层出发的数据生成策略。",
+    "只针对一台电梯的大量目标在同一楼层的数据生成策略。"
+  ],
+
+  "STD_LEN": 20,
+  "STD_RANGE": 3,
+  "TIME_DIF": [
+    0,
+    0.1,
+    0.2
+  ],
+  "TIME_TIMES": 4,
+  "BURST_LEN": 20,
+  "BURST_RANGE": 0
+}
