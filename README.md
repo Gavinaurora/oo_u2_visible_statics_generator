@@ -1,0 +1,1 @@
+# oo_u2_visible_statics_generator
